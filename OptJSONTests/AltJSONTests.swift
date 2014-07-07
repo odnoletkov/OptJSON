@@ -73,7 +73,7 @@ class AltJSONTests: XCTestCase {
     }
     
     func testSafeArrayBounds() {
-        XCTAssert(altJSON?.object?("phoneNumbers")?.array?(2) == nil)
+        XCTAssert(altJSON?.object?("phoneNumbers")?.array?(2) as? NSDictionary == nil)
     }
     
     func testNSJSONSerialization() {

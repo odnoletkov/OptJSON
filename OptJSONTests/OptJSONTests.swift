@@ -54,7 +54,7 @@ class OptJSONTests: XCTestCase {
     }
     
     func testSafeArrayBounds() {
-        XCTAssert(JSON(nativeJSON)?[key:"phoneNumbers"]?[index:2] == nil)
+        XCTAssert(JSON(nativeJSON)?[key:"phoneNumbers"]?[index:2] as? NSDictionary == nil)
     }
     
     func testNSJSONSerialization() {
