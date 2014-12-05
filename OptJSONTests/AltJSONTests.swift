@@ -10,8 +10,8 @@ import XCTest
 
 @objc
 protocol AltJSON {
-    @optional func array(index: Int) -> AltJSON?
-    @optional func object(key: String) -> AltJSON?
+    optional func array(index: Int) -> AltJSON?
+    optional func object(key: String) -> AltJSON?
 }
 
 extension NSArray : AltJSON {
@@ -28,7 +28,7 @@ extension NSNumber : AltJSON {}
 
 extension NSString : AltJSON {}
 
-let altJSON : AltJSON? = [
+let altJSON : AltJSON = [
     "name": "John Smith",
     "isAlive": true,
     "age": 25,
@@ -53,37 +53,37 @@ class AltJSONTests: XCTestCase {
 
     let nsJSON : AnyObject! = {
         let data = NSJSONSerialization.dataWithJSONObject(altJSON, options: NSJSONWritingOptions(0), error: nil)
-        return NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(0), error: nil)
+        return NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions(0), error: nil)
         }()
     
     func testBaseTypes() {
-        XCTAssert(altJSON?.object?("pet") as? NSNull == NSNull())
-        XCTAssert(altJSON?.object?("isAlive") as? NSNumber == true)
-        XCTAssert(altJSON?.object?("age") as? NSNumber == 25)
-        XCTAssert(altJSON?.object?("height_cm") as? NSNumber == 167.64)
-        XCTAssert(altJSON?.object?("name") as? NSString == "John Smith")
-        XCTAssert(altJSON?.object?("phoneNumbers") as? NSArray != nil)
-        XCTAssert(altJSON?.object?("address") as? NSDictionary != nil)
+        XCTAssert(altJSON.object?("pet") as? NSNull == NSNull())
+        XCTAssert(altJSON.object?("isAlive") as? NSNumber == true)
+        XCTAssert(altJSON.object?("age") as? NSNumber == 25)
+        XCTAssert(altJSON.object?("height_cm") as? NSNumber == 167.64)
+        XCTAssert(altJSON.object?("name") as? NSString == "John Smith")
+        XCTAssert(altJSON.object?("phoneNumbers") as? NSArray != nil)
+        XCTAssert(altJSON.object?("address") as? NSDictionary != nil)
     }
     
     func testOptionalChaining() {
-        XCTAssert(altJSON?.object?("address")?.object?("city") as? NSString == "New York")
-        XCTAssert(altJSON?.object?("phoneNumbers")?.array?(0)?.object?("type") as? NSString == "home")
-        XCTAssert(altJSON?.object?("missing")?.array?(0)?.object?("missing") as? NSNumber == nil)
+        XCTAssert(altJSON.object?("address")?.object?("city") as? NSString == "New York")
+        XCTAssert(altJSON.object?("phoneNumbers")?.array?(0)?.object?("type") as? NSString == "home")
+        XCTAssert(altJSON.object?("missing")?.array?(0)?.object?("missing") as? NSNumber == nil)
     }
     
     func testSafeArrayBounds() {
-        XCTAssert(altJSON?.object?("phoneNumbers")?.array?(2) as? NSDictionary == nil)
+        XCTAssert(altJSON.object?("phoneNumbers")?.array?(2) as? NSDictionary == nil)
     }
     
     func testNSJSONSerialization() {
-        XCTAssert(altJSON?.object?("pet") as? NSNull == NSNull())
-        XCTAssert(altJSON?.object?("isAlive") as? NSNumber == true)
-        XCTAssert(altJSON?.object?("age") as? NSNumber == 25)
-        XCTAssert(altJSON?.object?("height_cm") as? NSNumber == 167.64)
-        XCTAssert(altJSON?.object?("name") as? NSString == "John Smith")
-        XCTAssert(altJSON?.object?("phoneNumbers") as? NSArray != nil)
-        XCTAssert(altJSON?.object?("address") as? NSDictionary != nil)
+        XCTAssert(altJSON.object?("pet") as? NSNull == NSNull())
+        XCTAssert(altJSON.object?("isAlive") as? NSNumber == true)
+        XCTAssert(altJSON.object?("age") as? NSNumber == 25)
+        XCTAssert(altJSON.object?("height_cm") as? NSNumber == 167.64)
+        XCTAssert(altJSON.object?("name") as? NSString == "John Smith")
+        XCTAssert(altJSON.object?("phoneNumbers") as? NSArray != nil)
+        XCTAssert(altJSON.object?("address") as? NSDictionary != nil)
     }
     
     func testCompareSyntax() {

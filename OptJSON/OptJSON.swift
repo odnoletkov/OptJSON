@@ -8,37 +8,37 @@
 
 import Foundation
 
-protocol JSONValue {
+public protocol JSONValue {
     subscript(#key: String) -> JSONValue? { get }
     subscript(#index: Int) -> JSONValue? { get }
 }
 
 extension NSNull : JSONValue {
-    subscript(#key: String) -> JSONValue? { return nil }
-    subscript(#index: Int) -> JSONValue? { return nil }
+    public subscript(#key: String) -> JSONValue? { return nil }
+    public subscript(#index: Int) -> JSONValue? { return nil }
 }
 
 extension NSNumber : JSONValue {
-    subscript(#key: String) -> JSONValue? { return nil }
-    subscript(#index: Int) -> JSONValue? { return nil }
+    public subscript(#key: String) -> JSONValue? { return nil }
+    public subscript(#index: Int) -> JSONValue? { return nil }
 }
 
 extension NSString : JSONValue {
-    subscript(#key: String) -> JSONValue? { return nil }
-    subscript(#index: Int) -> JSONValue? { return nil }
+    public subscript(#key: String) -> JSONValue? { return nil }
+    public subscript(#index: Int) -> JSONValue? { return nil }
 }
 
 extension NSArray : JSONValue {
-    subscript(#key: String) -> JSONValue? { return nil }
-    subscript(#index: Int) -> JSONValue? { return index < count && index >= 0 ? JSON(self[index]) : nil }
+    public subscript(#key: String) -> JSONValue? { return nil }
+    public subscript(#index: Int) -> JSONValue? { return index < count && index >= 0 ? JSON(self[index]) : nil }
 }
 
 extension NSDictionary : JSONValue {
-    subscript(#key: String) -> JSONValue? { return JSON(self[key]) }
-    subscript(#index: Int) -> JSONValue? { return nil }
+    public subscript(#key: String) -> JSONValue? { return JSON(self[key]) }
+    public subscript(#index: Int) -> JSONValue? { return nil }
 }
 
-func JSON(object: AnyObject?) -> JSONValue? {
+public func JSON(object: AnyObject?) -> JSONValue? {
     if let some: AnyObject = object {
         switch some {
         case let null as NSNull:        return null
