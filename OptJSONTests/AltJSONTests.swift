@@ -52,8 +52,8 @@ let altJSON : AltJSON = [
 class AltJSONTests: XCTestCase {
 
     let nsJSON : AnyObject! = {
-        let data = NSJSONSerialization.dataWithJSONObject(altJSON, options: NSJSONWritingOptions(0), error: nil)
-        return NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions(0), error: nil)
+        let data = try? NSJSONSerialization.dataWithJSONObject(altJSON, options: NSJSONWritingOptions(rawValue: 0))
+        return try? NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions(rawValue: 0))
         }()
     
     func testBaseTypes() {
